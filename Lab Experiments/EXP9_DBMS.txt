@@ -1,0 +1,171 @@
+mysql> SELECT
+    -> F.FacName,
+    -> D.DeptName
+    -> FROM FACULTY F
+    -> INNER JOIN DEPARTMENT D
+    -> ON F.FacNo = D.DeptHead;
++---------+----------+
+| FacName | DeptName |
++---------+----------+
+| Mohan   | CSE      |
+| Kamal   | ECE      |
++---------+----------+
+2 rows in set (0.05 sec)
+
+mysql> SELECT
+    -> S.Name,
+    -> A.CourseNo
+    -> FROM STUDENT S
+    -> LEFT JOIN ASSESSMENT A
+    -> ON S.RegNo = A.RegNo
+    -> WHERE A.CourseNo IS NULL;
+Empty set (0.00 sec)
+
+mysql> SELECT
+    -> C.CourseDesc
+    -> FROM COURSE C
+    -> INNER JOIN FACULTY F
+    -> ON C.FacNo = F.FacNo
+    -> INNER JOIN DEPARTMENT D
+    -> ON F.FacNo = D.DeptHead
+    -> WHERE F.FacName = 'Kamal'
+    -> AND D.DeptName = 'ECE';
++------------+
+| CourseDesc |
++------------+
+| Database   |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT
+    -> S.RegNo,
+    -> S.Name,
+    -> A.Score
+    -> FROM STUDENT S, ASSESSMENT A
+    -> WHERE S.RegNo = A.RegNo;
++-------+---------+-------+
+| RegNo | Name    | Score |
++-------+---------+-------+
+|   101 | Aravind |    78 |
+|   101 | Aravind |    85 |
+|   102 | Priya   |    65 |
+|   102 | Priya   |    90 |
+|   103 | Karthik |    55 |
+|   104 | Divya   |    72 |
+|   104 | Divya   |    88 |
+|   105 | Ramesh  |    49 |
++-------+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT
+    -> S.Name,
+    -> A.Score
+    -> FROM STUDENT S
+    -> LEFT JOIN ASSESSMENT A
+    -> ON S.RegNo = A.RegNo;
++---------+-------+
+| Name    | Score |
++---------+-------+
+| Aravind |    85 |
+| Aravind |    78 |
+| Priya   |    90 |
+| Priya   |    65 |
+| Karthik |    55 |
+| Divya   |    88 |
+| Divya   |    72 |
+| Ramesh  |    49 |
++---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT
+    -> S.Name,
+    -> A.Score
+    -> FROM STUDENT S
+    -> RIGHT JOIN ASSESSMENT A
+    -> ON S.RegNo = A.RegNo;
++---------+-------+
+| Name    | Score |
++---------+-------+
+| Aravind |    78 |
+| Aravind |    85 |
+| Priya   |    65 |
+| Priya   |    90 |
+| Karthik |    55 |
+| Divya   |    72 |
+| Divya   |    88 |
+| Ramesh  |    49 |
++---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT
+    -> S.Name,
+    -> C.CourseDesc
+    -> FROM STUDENT S
+    -> CROSS JOIN COURSE C;
++---------+-------------+
+| Name    | CourseDesc  |
++---------+-------------+
+| Aravind | Statistics  |
+| Aravind | Database    |
+| Aravind | Programming |
+| Priya   | Statistics  |
+| Priya   | Database    |
+| Priya   | Programming |
+| Karthik | Statistics  |
+| Karthik | Database    |
+| Karthik | Programming |
+| Divya   | Statistics  |
+| Divya   | Database    |
+| Divya   | Programming |
+| Ramesh  | Statistics  |
+| Ramesh  | Database    |
+| Ramesh  | Programming |
++---------+-------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENT;
++-------+---------+--------+------------+------------+------------+
+| regno | name    | gender | DOB        | mobileNo   | city       |
++-------+---------+--------+------------+------------+------------+
+|   101 | Aravind | M      | 2005-01-10 | 9876543210 | Salem      |
+|   102 | Priya   | F      | 2005-03-15 | 9876543211 | Chennai    |
+|   103 | Karthik | M      | 2004-11-20 | 9876543212 | Coimbatore |
+|   104 | Divya   | F      | 2005-07-08 | 9876543213 | Madurai    |
+|   105 | Ramesh  | M      | 2004-12-05 | 9876543214 | Salem      |
++-------+---------+--------+------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT * FROM FACULTY;
++-------+---------+--------+------------+------------+------------+------+
+| FacNo | FacName | Gender | DOB        | DOJ        | MobileNo   | Dept |
++-------+---------+--------+------------+------------+------------+------+
+| F001  | Mohan   | M      | 1967-05-10 | 2010-06-15 | 9876500001 | CSE  |
+| F002  | Kamal   | M      | 1982-08-20 | 2012-07-12 | 9876500002 | ECE  |
++-------+---------+--------+------------+------------+------------+------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT * FROM DEPARTMENT;
++--------+----------+----------+
+| DeptNo | DeptName | DeptHead |
++--------+----------+----------+
+| D001   | CSE      | F001     |
+| D002   | ECE      | F002     |
+| D003   | IT       | F003     |
++--------+----------+----------+
+3 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT * FROM COURSE;
++----------+-------------+------------+-------+--------+-------+
+| CourseNo | CourseDesc  | CourseType | SemNo | HallNo | FacNo |
++----------+-------------+------------+-------+--------+-------+
+| C01      | Programming | T          | 1     | H001   | F001  |
+| C02      | Database    | T          | 3     | H002   | F002  |
+| C03      | Statistics  | T          | 2     | H003   | F003  |
++----------+-------------+------------+-------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT * FROM ASSESSMENT;

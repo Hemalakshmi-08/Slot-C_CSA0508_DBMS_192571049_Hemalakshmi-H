@@ -1,0 +1,95 @@
+mysql> SELECT *
+    -> FROM ASSESSMENT
+    -> WHERE Score >
+    -> (
+    -> SELECT AVG(Score)
+    -> FROM ASSESSMENT
+    -> );
++-------+----------+-------+
+| RegNo | CourseNo | Score |
++-------+----------+-------+
+|   101 | C01      |    78 |
+|   101 | C02      |    85 |
+|   102 | C03      |    90 |
+|   104 | C03      |    88 |
++-------+----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT RegNo
+    -> FROM ASSESSMENT
+    -> GROUP BY RegNo
+    -> HAVING COUNT(CourseNo) > 1;
++-------+
+| RegNo |
++-------+
+|   101 |
+|   102 |
+|   104 |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM FACULTY
+    -> WHERE DOJ =
+    -> (
+    -> SELECT MAX(DOJ)
+    -> FROM FACULTY
+    -> );
++-------+---------+--------+------------+------------+------------+------+
+| FacNo | FacName | Gender | DOB        | DOJ        | MobileNo   | Dept |
++-------+---------+--------+------------+------------+------------+------+
+| F002  | Kamal   | M      | 1982-08-20 | 2012-07-12 | 9876500002 | ECE  |
++-------+---------+--------+------------+------------+------------+------+
+1 row in set (0.03 sec)
+
+mysql> SELECT A.CourseNo,
+    -> A.RegNo,
+    -> A.Score
+    -> FROM ASSESSMENT A
+    -> WHERE A.Score >
+    -> (
+    -> SELECT AVG(B.Score)
+    -> FROM ASSESSMENT B
+    -> WHERE A.CourseNo = B.CourseNo
+    -> );
++----------+-------+-------+
+| CourseNo | RegNo | Score |
++----------+-------+-------+
+| C01      |   101 |    78 |
+| C02      |   101 |    85 |
+| C03      |   102 |    90 |
+| C01      |   104 |    72 |
++----------+-------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM ASSESSMENT A
+    -> WHERE Score =
+    -> (
+    -> SELECT MAX(B.Score)
+    -> FROM ASSESSMENT B
+    -> WHERE A.CourseNo = B.CourseNo
+    -> );
++-------+----------+-------+
+| RegNo | CourseNo | Score |
++-------+----------+-------+
+|   101 | C01      |    78 |
+|   101 | C02      |    85 |
+|   102 | C03      |    90 |
++-------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM ASSESSMENT;
++-------+----------+-------+
+| RegNo | CourseNo | Score |
++-------+----------+-------+
+|   101 | C01      |    78 |
+|   101 | C02      |    85 |
+|   102 | C01      |    65 |
+|   102 | C03      |    90 |
+|   103 | C02      |    55 |
+|   104 | C01      |    72 |
+|   104 | C03      |    88 |
+|   105 | C02      |    49 |
++-------+----------+-------+
+8 rows in set (0.00 sec)

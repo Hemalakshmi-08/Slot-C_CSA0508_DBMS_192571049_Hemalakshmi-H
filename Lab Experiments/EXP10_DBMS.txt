@@ -1,0 +1,146 @@
+mysql> CREATE TABLE EMPLOYEES1
+    -> (
+    -> Employee_ID INT PRIMARY KEY,
+    -> First_Name VARCHAR(20),
+    -> Salary INT
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> INSERT INTO EMPLOYEES1
+    -> VALUES
+    -> (10,'Arun',150000),
+    -> (20,'Priya',140000),
+    -> (30,'Kamal',160000),
+    -> (40,'Divya',120000),
+    -> (50,'Mohan',180000);
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES1;
++-------------+------------+--------+
+| Employee_ID | First_Name | Salary |
++-------------+------------+--------+
+|          10 | Arun       | 150000 |
+|          20 | Priya      | 140000 |
+|          30 | Kamal      | 160000 |
+|          40 | Divya      | 120000 |
+|          50 | Mohan      | 180000 |
++-------------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE VIEW v1 AS
+    -> SELECT Employee_ID, Salary
+    -> FROM EMPLOYEES1;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SELECT * FROM v1;
++-------------+--------+
+| Employee_ID | Salary |
++-------------+--------+
+|          10 | 150000 |
+|          20 | 140000 |
+|          30 | 160000 |
+|          40 | 120000 |
+|          50 | 180000 |
++-------------+--------+
+5 rows in set (0.03 sec)
+
+mysql> INSERT INTO v1
+    -> VALUES
+    -> (60,170000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM EMPLOYEES1;
++-------------+------------+--------+
+| Employee_ID | First_Name | Salary |
++-------------+------------+--------+
+|          10 | Arun       | 150000 |
+|          20 | Priya      | 140000 |
+|          30 | Kamal      | 160000 |
+|          40 | Divya      | 120000 |
+|          50 | Mohan      | 180000 |
+|          60 | NULL       | 170000 |
++-------------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> DELETE FROM v1
+    -> WHERE Employee_ID = 60;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * FROM EMPLOYEES1;
++-------------+------------+--------+
+| Employee_ID | First_Name | Salary |
++-------------+------------+--------+
+|          10 | Arun       | 150000 |
+|          20 | Priya      | 140000 |
+|          30 | Kamal      | 160000 |
+|          40 | Divya      | 120000 |
+|          50 | Mohan      | 180000 |
++-------------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE INDEX index1
+    -> ON EMPLOYEES1(Salary);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT First_Name
+    -> FROM EMPLOYEES1
+    -> WHERE Salary > 145000;
++------------+
+| First_Name |
++------------+
+| Arun       |
+| Kamal      |
+| Mohan      |
++------------+
+3 rows in set (0.00 sec)
+
+mysql> DROP INDEX index1 ON EMPLOYEES1;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> CREATE INDEX index1
+    -> ON EMPLOYEES1(Employee_ID);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT First_Name
+    -> FROM EMPLOYEES1
+    -> WHERE Employee_ID = 10;
++------------+
+| First_Name |
++------------+
+| Arun       |
++------------+
+1 row in set (0.00 sec)
+
+mysql> DROP INDEX index1
+    -> ON EMPLOYEES1;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES1;
++-------------+------------+--------+
+| Employee_ID | First_Name | Salary |
++-------------+------------+--------+
+|          10 | Arun       | 150000 |
+|          20 | Priya      | 140000 |
+|          30 | Kamal      | 160000 |
+|          40 | Divya      | 120000 |
+|          50 | Mohan      | 180000 |
++-------------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT * FROM v1;
++-------------+--------+
+| Employee_ID | Salary |
++-------------+--------+
+|          10 | 150000 |
+|          20 | 140000 |
+|          30 | 160000 |
+|          40 | 120000 |
+|          50 | 180000 |
++-------------+--------+
+5 rows in set (0.00 sec)

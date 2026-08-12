@@ -1,0 +1,55 @@
+mysql> DELIMITER //
+mysql> CREATE PROCEDURE test_mysql_while_loop()
+    -> BEGIN
+    ->     DECLARE x INT;
+    ->     DECLARE str VARCHAR(255);
+    ->
+    ->     SET x = 1;
+    ->     SET str = '';
+    ->
+    ->     WHILE x <= 5 DO
+    ->         SET str = CONCAT(str, x, ',');
+    ->         SET x = x + 1;
+    ->     END WHILE;
+    ->
+    ->     SELECT str;
+    -> END //
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> DELIMITER ;
+mysql> CALL test_mysql_while_loop();
++------------+
+| str        |
++------------+
+| 1,2,3,4,5, |
++------------+
+1 row in set (0.05 sec)
+
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> DELIMITER //
+mysql> CREATE PROCEDURE dorepeat(p1 INT)
+    -> BEGIN
+    ->     SET @x = 0;
+    ->
+    ->     REPEAT
+    ->         SET @x = @x + 1;
+    ->     UNTIL @x > p1
+    ->     END REPEAT;
+    ->
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DELIMITER ;
+mysql> CALL dorepeat(4001);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> SELECT @x;
++------+
+| @x   |
++------+
+| 4002 |
++------+
+1 row in set (0.00 sec)
+
+mysql>

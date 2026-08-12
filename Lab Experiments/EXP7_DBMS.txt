@@ -1,0 +1,149 @@
+mysql> USE DBMSLAB;
+Database changed
+mysql> SELECT
+    -> C.CourseDesc,
+    -> COUNT(A.RegNo) AS No_of_Students
+    -> FROM COURSE C
+    -> JOIN ASSESSMENT A
+    -> ON C.CourseNo = A.CourseNo
+    -> GROUP BY C.CourseDesc;
++-------------+----------------+
+| CourseDesc  | No_of_Students |
++-------------+----------------+
+| Programming |              3 |
+| Database    |              3 |
+| Statistics  |              2 |
++-------------+----------------+
+3 rows in set (0.04 sec)
+
+mysql> SELECT
+    -> RegNo,
+    -> COUNT(CourseNo) AS Total_Courses
+    -> FROM ASSESSMENT
+    -> GROUP BY RegNo;
++-------+---------------+
+| RegNo | Total_Courses |
++-------+---------------+
+|   101 |             2 |
+|   102 |             2 |
+|   103 |             1 |
+|   104 |             2 |
+|   105 |             1 |
++-------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT
+    -> CourseNo,
+    -> COUNT(RegNo) AS Total_Students
+    -> FROM ASSESSMENT
+    -> GROUP BY CourseNo
+    -> HAVING COUNT(RegNo) > 2;
++----------+----------------+
+| CourseNo | Total_Students |
++----------+----------------+
+| C01      |              3 |
+| C02      |              3 |
++----------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT
+    -> Name,
+    -> Gender,
+    -> MobileNo
+    -> FROM STUDENT
+    -> ORDER BY RegNo ASC;
++---------+--------+------------+
+| Name    | Gender | MobileNo   |
++---------+--------+------------+
+| Aravind | M      | 9876543210 |
+| Priya   | F      | 9876543211 |
+| Karthik | M      | 9876543212 |
+| Divya   | F      | 9876543213 |
+| Ramesh  | M      | 9876543214 |
++---------+--------+------------+
+5 rows in set (0.03 sec)
+
+mysql> SELECT *
+    -> FROM FACULTY
+    -> ORDER BY DOB ASC;
++-------+---------+--------+------------+------------+------------+------+
+| FacNo | FacName | Gender | DOB        | DOJ        | MobileNo   | Dept |
++-------+---------+--------+------------+------------+------------+------+
+| F001  | Mohan   | M      | 1967-05-10 | 2010-06-15 | 9876500001 | CSE  |
+| F002  | Kamal   | M      | 1982-08-20 | 2012-07-12 | 9876500002 | ECE  |
++-------+---------+--------+------------+------------+------------+------+
+2 rows in set (0.05 sec)
+
+mysql> SELECT *
+    -> FROM FACULTY
+    -> ORDER BY DOJ DESC;
++-------+---------+--------+------------+------------+------------+------+
+| FacNo | FacName | Gender | DOB        | DOJ        | MobileNo   | Dept |
++-------+---------+--------+------------+------------+------------+------+
+| F002  | Kamal   | M      | 1982-08-20 | 2012-07-12 | 9876500002 | ECE  |
+| F001  | Mohan   | M      | 1967-05-10 | 2010-06-15 | 9876500001 | CSE  |
++-------+---------+--------+------------+------------+------------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM STUDENT
+    -> ORDER BY RegNo DESC;
++-------+---------+--------+------------+------------+------------+
+| regno | name    | gender | DOB        | mobileNo   | city       |
++-------+---------+--------+------------+------------+------------+
+|   105 | Ramesh  | M      | 2004-12-05 | 9876543214 | Salem      |
+|   104 | Divya   | F      | 2005-07-08 | 9876543213 | Madurai    |
+|   103 | Karthik | M      | 2004-11-20 | 9876543212 | Coimbatore |
+|   102 | Priya   | F      | 2005-03-15 | 9876543211 | Chennai    |
+|   101 | Aravind | M      | 2005-01-10 | 9876543210 | Salem      |
++-------+---------+--------+------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENT;
++-------+---------+--------+------------+------------+------------+
+| regno | name    | gender | DOB        | mobileNo   | city       |
++-------+---------+--------+------------+------------+------------+
+|   101 | Aravind | M      | 2005-01-10 | 9876543210 | Salem      |
+|   102 | Priya   | F      | 2005-03-15 | 9876543211 | Chennai    |
+|   103 | Karthik | M      | 2004-11-20 | 9876543212 | Coimbatore |
+|   104 | Divya   | F      | 2005-07-08 | 9876543213 | Madurai    |
+|   105 | Ramesh  | M      | 2004-12-05 | 9876543214 | Salem      |
++-------+---------+--------+------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT * FROM FACULTY;
++-------+---------+--------+------------+------------+------------+------+
+| FacNo | FacName | Gender | DOB        | DOJ        | MobileNo   | Dept |
++-------+---------+--------+------------+------------+------------+------+
+| F001  | Mohan   | M      | 1967-05-10 | 2010-06-15 | 9876500001 | CSE  |
+| F002  | Kamal   | M      | 1982-08-20 | 2012-07-12 | 9876500002 | ECE  |
++-------+---------+--------+------------+------------+------------+------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT * FROM COURSE;
++----------+-------------+------------+-------+--------+-------+
+| CourseNo | CourseDesc  | CourseType | SemNo | HallNo | FacNo |
++----------+-------------+------------+-------+--------+-------+
+| C01      | Programming | T          | 1     | H001   | F001  |
+| C02      | Database    | T          | 3     | H002   | F002  |
+| C03      | Statistics  | T          | 2     | H003   | F003  |
++----------+-------------+------------+-------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT * FROM ASSESSMENT;
++-------+----------+-------+
+| RegNo | CourseNo | Score |
++-------+----------+-------+
+|   101 | C01      |    78 |
+|   101 | C02      |    85 |
+|   102 | C01      |    65 |
+|   102 | C03      |    90 |
+|   103 | C02      |    55 |
+|   104 | C01      |    72 |
+|   104 | C03      |    88 |
+|   105 | C02      |    49 |
++-------+----------+-------+
+8 rows in set (0.00 sec)
